@@ -31,10 +31,27 @@ services:
       - /sys:/sys
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /tmp/powerapi-sensor-reporting:/reporting powerapi/hwpc-sensor
+    depends_on:
+      - mongo
 
   powerapi-formula:
     image: powerapi/rapl-formula
-    command: -s --input mongodb -u mongodb://root:example@mongo:27017 -d powerapi -c sensor --output influxdb --uri grafana --port 8086 --db power_consumption --name grafana_output
+    command: -s --input mongodb -u mongodb://root:example@mongo:27017 -d powerapi -c sensor --output influxdb --uri influxdb --port 8086 --db power_consumption --name grafana_output
+    depends_on:
+      - influxdb
+      - mongo
 
   grafana:
-    image: grafana
+    image: grafana/grafana
+    ports:
+      - 80:3000
+
+  influxdb:
+    image: influxdb
+    environment:
+     DOCKER_INFLUXDB_INIT_USERNAME: root
+     DOCKER_INFLUXDB_INIT_PASSWORD: example
+     DOCKER_INFLUXDB_INIT_ORG: powerapi
+     DOCKER_INFLUXDB_INIT_BUCKET: power_consumption
+
+
