@@ -25,10 +25,16 @@ services:
 
   powerapi-sensor:
     image: powerapi/hwpc-sensor
-    command: -n fabriksensor -r "mongodb" -U "mongodb://root:example@mongo:27017" -D powerapi -C sensor -s "rapl" -o -e RAPL_ENERGY_PKG
+    command: -n fabriksensor -r "mongodb" -U mongodb://root:example@mongo:27017 -D powerapi -C sensor -s "rapl" -o -e RAPL_ENERGY_PKG
     privileged: true
     volumes:
       - /sys:/sys
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /tmp/powerapi-sensor-reporting:/reporting powerapi/hwpc-sensor
 
+  powerapi-formula:
+    image: powerapi/rapl-formula
+    command: -s --input mongodb -u mongodb://root:example@mongo:27017 -d powerapi -c sensor --output influxdb --uri grafana --port 8086 --db power_consumption --name grafana_output
+
+  grafana:
+    image: grafana
