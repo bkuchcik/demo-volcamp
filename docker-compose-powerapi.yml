@@ -16,5 +16,6 @@ services:
     command: -s --input mongodb -u mongodb://root:example@mongo:27017 -d powerapi -c sensor --output influxdb --uri influxdb --port 8086 --db power_consumption --name grafana_output
 
 networks:
-  powerapi-demo:
+  default:
+    powerapi-demo:
 
