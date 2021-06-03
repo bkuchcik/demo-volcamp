@@ -36,6 +36,7 @@ services:
      DOCKER_INFLUXDB_INIT_ORG: powerapi
      DOCKER_INFLUXDB_INIT_BUCKET: power_consumption
 
+
 networks:
   default:
-    powerapi-demo:
+    name: powerapi-demo

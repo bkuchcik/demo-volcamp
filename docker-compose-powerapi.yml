@@ -17,5 +17,6 @@ services:
 
 networks:
   default:
-    powerapi-demo:
+    external: true
+    name: powerapi-demo
 
