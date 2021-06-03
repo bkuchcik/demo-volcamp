@@ -5,10 +5,15 @@ services:
   mongo:
     image: mongo
     restart: always
+    ports:
+      - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-
+      MONGO_INITDB_DATABASE: powerapi
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  
   mongo-express:
     image: mongo-express
     restart: always
@@ -19,8 +24,8 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
 
   powerapi-sensor:
-    image: powerapi-sensor
-    command: -n fabriksensor -r "mongodb" -U "mongodb://mongo:8425" -D powerapi -C sensor -s "rapl" -o -e RAPL_ENERGY_PKG
+    image: powerapi/hwpc-sensor
+    command: -n fabriksensor -r "mongodb" -U "mongodb://root:example@mongo:27017" -D powerapi -C sensor -s "rapl" -o -e RAPL_ENERGY_PKG
     privileged: true
     volumes:
       - /sys:/sys
