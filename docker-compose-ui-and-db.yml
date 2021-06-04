@@ -29,7 +29,9 @@ services:
       - 80:3000
 
   influxdb:
-    image: influxdb
+    image: influxdb:1.8
+    ports:
+      - 8086:8086
     environment:
      DOCKER_INFLUXDB_INIT_USERNAME: root
      DOCKER_INFLUXDB_INIT_PASSWORD: example
