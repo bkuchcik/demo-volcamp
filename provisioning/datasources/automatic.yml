@@ -7,7 +7,7 @@ deleteDatasources:
 datasources:
 - name: InfluxDb
   type: influxdb
-  access: direct
+  access: default
   url: http://influxdb:8086
   user: admin
   database: power_consumption

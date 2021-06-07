@@ -27,8 +27,10 @@ services:
 
   grafana:
     image: grafana/grafana
+    privileged: true
     volumes:
-      - grafana-store:/var/lib/grafana
+            #      - grafana-store:/var/lib/grafana
+      - ./dashboards:/tmp
       - ./provisioning:/etc/grafana/provisioning
     ports:
       - 80:3000

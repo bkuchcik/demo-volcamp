@@ -4,7 +4,7 @@ services:
 
   powerapi-sensor:
     image: powerapi/hwpc-sensor
-    command: -n volcamp-demo-sensor -r "mongodb" -U mongodb://root:example@mongo:27017 -D powerapi -C sensor -c rapl -e RAPL_ENERGY_PKG
+    command: -n volcamp-demo-sensor -r "mongodb" -U mongodb://root:example@mongo:27017 -D powerapi -C sensor -c rapl -e RAPL_ENERGY_PKG -c hwpc -e LLC_MISSES -e CYCLES
     privileged: true
     volumes:
       - /sys:/sys
