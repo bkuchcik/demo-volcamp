@@ -27,6 +27,9 @@ services:
 
   grafana:
     image: grafana/grafana
+    volumes:
+      - grafana-store:/var/lib/grafana
+      - ./provisioning:/etc/grafana/provisioning
     ports:
       - 80:3000
 
@@ -41,6 +44,8 @@ services:
      DOCKER_INFLUXDB_INIT_BUCKET: power_consumption
     volumes:
      - ./influxdb-init.iql:/docker-entrypoint-initdb.d/influxdb-init.iql:ro        
+volumes:
+  grafana-store:
 
 networks:
   default:

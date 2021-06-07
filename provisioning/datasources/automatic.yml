@@ -1,0 +1,28 @@
+apiVersion: 1
+
+deleteDatasources:
+  - name: InfluxDb
+    orgId: 1
+
+datasources:
+- name: InfluxDb
+  type: influxdb
+  access: direct
+  url: http://influxdb:8086
+  user: admin
+  database: power_consumption
+  basicAuth: false
+  basicAuthUser: root
+  withCredentials:
+  isDefault: true
+  jsonData:
+     tlsAuth: false
+     tlsAuthWithCACert: false
+  secureJsonData:
+    tlsCACert: ""
+    tlsClientCert: ""
+    tlsClientKey: ""
+    password: example
+    basicAuthPassword: example  
+  version: 1
+  editable: true
